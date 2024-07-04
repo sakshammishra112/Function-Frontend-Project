@@ -5,10 +5,15 @@ contract Assessment {
     address payable public owner;
     uint256 public balance;
     string public userName;
-
+    string[] public ItemForSale = ["1. Yellow Shirt","2. M416 Skin","3. Shotgun Skin","4. Legendery Marrine Outfit"]; 
+    string[] public MyInventory;
+ 
     event Deposit(uint256 amount);
     event Withdraw(uint256 amount);
     event NameSet(string name);
+    event GetItemForSale();
+    event GetInventory();
+    event GetItem(uint256 _value, string name);
 
     constructor(uint initBalance) payable {
         owner = payable(msg.sender);
@@ -27,17 +32,12 @@ contract Assessment {
 
     function deposit(uint256 _amount) public payable {
         uint _previousBalance = balance;
-        // make sure this is the owner
         require(msg.sender == owner, "You are not the owner of this account");
-        // perform transaction
         balance += _amount;
-        // assert transaction completed successfully
         assert(balance == _previousBalance + _amount);
-        // emit the event
         emit Deposit(_amount);
     }
 
-    // custom error
     error InsufficientBalance(uint256 balance, uint256 withdrawAmount);
 
     function withdraw(uint256 _withdrawAmount) public {
@@ -49,11 +49,43 @@ contract Assessment {
                 withdrawAmount: _withdrawAmount
             });
         }
-        // withdraw the given amount
         balance -= _withdrawAmount;
-        // assert the balance is correct
         assert(balance == (_previousBalance - _withdrawAmount));
-        // emit the event
         emit Withdraw(_withdrawAmount);
+    }
+
+    function getItemForSale() public view returns(string[] memory) {
+        return ItemForSale;
+    }
+
+    function getInventory() public view returns(string[] memory){
+        return MyInventory;
+    }
+
+    function buyItem(uint _value) public returns(string memory){
+        if (_value == 1) {
+            balance -= 300;
+            MyInventory.push("Yellow Dress");
+            emit GetItem(_value, "Yellow Dress");
+            return "You now have 1 yellow dress.";
+        } else if (_value == 2) {
+            balance -= 400;
+            MyInventory.push("M416 skin");
+            emit GetItem(_value, "M416 skin");
+            return "You now have M416 skin";
+        } else if (_value == 3) {
+            balance -= 500;
+            MyInventory.push("Shotgun Skin");
+            emit GetItem(_value, "Shotgun Skin");
+            return "You now have Shotgun skin";
+        } else if (_value == 4) {
+            balance -= 350;
+            MyInventory.push("Marine Outfit");
+            emit GetItem(_value, "Marine Outfit");
+            return "You now have a Legendary Marine Outfit";
+        } else {
+            emit GetItem(_value, "Wrong index position");
+            return "There is no item at such index for sale";
+        }
     }
 }
