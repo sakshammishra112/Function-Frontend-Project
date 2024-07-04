@@ -11,6 +11,9 @@ export default function HomePage() {
   const [depositAmount, setDepositAmount] = useState(0);
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [newUserName, setNewUserName] = useState("");
+  const [itemsForSale, setItemsForSale] = useState([]);
+  const [inventory, setInventory] = useState([]);
+  const [itemIndex, setItemIndex] = useState("");
 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const atmABI = atm_abi.abi;
@@ -47,7 +50,6 @@ export default function HomePage() {
     const accounts = await ethWallet.request({ method: "eth_requestAccounts" });
     handleAccount(accounts);
 
-    // once wallet is set we can get a reference to our deployed contract
     getATMContract(name);
   };
 
@@ -64,11 +66,35 @@ export default function HomePage() {
     }
 
     getBalance();
+    getInventory();
   };
 
   const getBalance = async () => {
     if (atm) {
       setBalance((await atm.getBalance()).toNumber());
+    }
+  };
+
+  const getItemsForSale = async () => {
+    if (atm) {
+      const items = await atm.getItemForSale();
+      setItemsForSale(items);
+    }
+  };
+
+  const getInventory = async () => {
+    if (atm) {
+      const inv = await atm.getInventory();
+      setInventory(inv);
+    }
+  };
+
+  const buyItem = async () => {
+    if (atm && itemIndex) {
+      const tx = await atm.buyItem(itemIndex);
+      await tx.wait();
+      getBalance();
+      getInventory();
     }
   };
 
@@ -89,12 +115,10 @@ export default function HomePage() {
   };
 
   const initUser = () => {
-    // Check to see if user has Metamask
     if (!ethWallet) {
       return <p>Please install Metamask in order to use this ATM.</p>;
     }
 
-    // Check to see if user is connected. If not, connect to their account
     if (!account) {
       return (
         <button
@@ -116,6 +140,12 @@ export default function HomePage() {
           <p><b>Your Name: </b>{userName}</p>
           <p><b>Your Account: </b>{account}</p>
           <p><b>Your Balance:</b> {balance} ETH</p>
+          <p><b>Your Inventory:</b></p>
+          <ul>
+            {Array.isArray(inventory) && inventory.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
         </div>
         <div style={styles.section}>
           <h3>Deposit</h3>
@@ -139,6 +169,26 @@ export default function HomePage() {
           />
           <button onClick={withdraw} style={styles.button}>Withdraw</button>
         </div>
+        <div style={styles.section}>
+          <h3>Items for Sale</h3>
+          <button onClick={getItemsForSale} style={styles.button}>Show Items for Sale</button>
+          <ul>
+            {Array.isArray(itemsForSale) && itemsForSale.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div style={styles.section}>
+          <h3>Buy Item</h3>
+          <input
+            type="number"
+            placeholder="Item Index"
+            value={itemIndex}
+            onChange={(e) => setItemIndex(Number(e.target.value))}
+            style={styles.input}
+          />
+          <button onClick={buyItem} style={styles.button}>Buy Item</button>
+        </div>
       </div>
     );
   };
@@ -155,8 +205,8 @@ export default function HomePage() {
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
       textAlign: 'center',
       width: '50%',
-      margin: 'auto', // Center the container horizontally
-      marginTop: '4%', // Center the container vertically (adjust as needed)
+      margin: 'auto',
+      marginTop: '4%',
     },
     accountInfo: {
       backgroundColor: '#f0f0f0',
@@ -188,14 +238,14 @@ export default function HomePage() {
       borderRadius: '15px',
       backgroundColor: 'aqua',
       width: '30%',
-      margin: 'auto', // Center the container horizontally
-      marginTop: '10%', // Center the container vertically (adjust as needed)
+      margin: 'auto',
+      marginTop: '10%',
     }
   };
 
   return (
     <main style={styles.main}>
-      <header style={styles.header}><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header style={styles.header}><h1>Welcome to the Preet Store</h1></header>
         
       {initUser()}
     </main>
