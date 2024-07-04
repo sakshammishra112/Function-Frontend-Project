@@ -11,6 +11,9 @@ The Assessment Solidity Smart Contract serves as the backbone of a decentralized
 * User Name Setting: Users can set their names associated with their Ethereum addresses.
 * Deposit Ether: Users can deposit Ether into their accounts, which gets recorded on the blockchain.
 * Withdraw Funds: Users can withdraw funds from their accounts, ensuring proper balance checks and error handling.
+* In-Game Store: Users can burn tokens to purchase in-game items which are stored in their inventory.
+* In-Game Balance: Users can also check their in game balance.
+* In-Game Inventory: Users can also check their in game inventory item.
 * The contract utilizes Solidity's features such as events, error handling with require and revert statements, and access control through owner verification. These features ensure the contract's reliability, security, and user-friendliness.
 
 ## Frontened interaction
@@ -20,7 +23,11 @@ The index.js file provided in this repository serves as the frontend component o
 * Set User Name: Users can set their names associated with their Ethereum addresses.
 * Deposit Ether: Users can deposit Ether into their accounts via the frontend interface.
 * Withdraw Funds: Users can initiate fund withdrawals directly from the frontend.
+* Item For Sale: Users can check which type of item are for sale.
+* Buy Item: Users can spend their balance to buy item from the store.
+* Check Inventory: Users are now able to see thier inventory item.
 * The index.js file uses ethers.js library to interact with the Ethereum blockchain, providing a seamless user experience for managing balances and transactions.
+
 ## Getting Started
 
 ### Installing
