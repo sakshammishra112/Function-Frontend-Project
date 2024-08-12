@@ -199,7 +199,7 @@ export default function HomePage() {
 
   const styles = {
     container: {
-      backgroundColor: 'aqua',
+      backgroundColor: 'orange',
       borderRadius: '15px',
       padding: '20px',
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
@@ -245,7 +245,7 @@ export default function HomePage() {
 
   return (
     <main style={styles.main}>
-      <header style={styles.header}><h1>Welcome to the Preet Store</h1></header>
+      <header style={styles.header}><h1>Welcome to the Saksham Store</h1></header>
         
       {initUser()}
     </main>
