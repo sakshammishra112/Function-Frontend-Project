@@ -7,13 +7,13 @@ This README provides an overview of the contract's functionalities and instructi
 
 The Assessment Solidity Smart Contract serves as the backbone of a decentralized application (dApp) that allows users to interact with Ethereum blockchain features. It includes the following key functionalities:
 
-* Balance Management: Users can check their current balances on the blockchain.
-* User Name Setting: Users can set their names associated with their Ethereum addresses.
-* Deposit Ether: Users can deposit Ether into their accounts, which gets recorded on the blockchain.
-* Withdraw Funds: Users can withdraw funds from their accounts, ensuring proper balance checks and error handling.
-* In-Game Store: Users can burn tokens to purchase in-game items which are stored in their inventory.
-* In-Game Balance: Users can also check their in game balance.
-* In-Game Inventory: Users can also check their in game inventory item.
+* **Balance Management**: Users can check their current balances on the blockchain.
+* **User Name Setting**: Users can set their names associated with their Ethereum addresses.
+* **Deposit Ether**: Users can deposit Ether into their accounts, which gets recorded on the blockchain.
+* **Withdraw Funds**: Users can withdraw funds from their accounts, ensuring proper balance checks and error handling.
+* **In-Game Store**: Users can burn tokens to purchase in-game items which are stored in their inventory.
+* **In-Game Balance**: Users can also check their in game balance.
+* **In-Game Inventory**: Users can also check their in game inventory item.
 * The contract utilizes Solidity's features such as events, error handling with require and revert statements, and access control through owner verification. These features ensure the contract's reliability, security, and user-friendliness.
 
 ## Frontened interaction
@@ -34,7 +34,7 @@ The index.js file provided in this repository serves as the frontend component o
 
 To use this smart contract, you need to have a Solidity development environment set up. You can download the code directly or clone the repository:
 ```
-git clone https://github.com/PreetJawla/Function-Frontened.git
+git clone https://github.com/sakshammishra112/Function-Frontend-Project.git
 ```
 ### Executing program
 
@@ -50,13 +50,13 @@ After this, the project will be running on your localhost.
 Typically at http://localhost:3000/
 
 ## Help
-If you encounter any issues or have questions about using the smart contract, please contact [preetjawla6@gmial.com].
+If you encounter any issues or have questions about using the smart contract, please contact [sakshammishra112@gmial.com].
 
 ## Authors
 
-* Preet Jawla
-* [preetjawla6@gmail.com]
+* Saksham Mishra
+* [sakshammishra112@gmial.com]
 
 ## License
 
-This project is licensed under the [preet] License - see the LICENSE.md file for details
+This project is licensed under the [saksham] License - see the LICENSE.md file for details
